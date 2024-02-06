@@ -5,28 +5,32 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 2f;
+    [SerializeField] private int points;
+    [SerializeField] private GameObject explosionParticle;
 
     private GameManager gameManager;
 
-
-
-
-
-
-
-    void Start()
+    private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
         Destroy(gameObject, lifeTime);
     }
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
+        if (!gameManager.IsGameOver())
+        {
+            gameManager.UpdateScore(points);
+            Instantiate(explosionParticle,
+                        transform.position,
+                        Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 
     private void OnDestroy()
     {
-        gameManager.targetPositionInScne.Remove(transform.position);
+        gameManager.targetPositionsInScene.Remove(transform.position);
     }
 }

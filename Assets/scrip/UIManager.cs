@@ -5,17 +5,30 @@ using TMPro; // poner esto es importante
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI positionText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI timeText;
 
+    [SerializeField] private TextMeshProUGUI gameOverScoreText;
+    [SerializeField] private GameObject gameOverPanel;
 
-    private void Start()
+    public void UpdateScoreText(int score)
     {
-        positionText.text = "points: 0";
+        scoreText.text = $"Score: {score}";
     }
 
+    public void UpdateTimeText(int time)
+    {
+        timeText.text = $"Time: {time}";
+    }
 
+    public void ShowGameOverPanel(int score)
+    {
+        gameOverPanel.SetActive(true);
+        gameOverScoreText.text = $"Score: {score}";
+    }
 
-
-
-
+    public void HideGameOverPanel()
+    {
+        gameOverPanel.SetActive(false);
+    }
 }
